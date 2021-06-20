@@ -20,20 +20,20 @@ function App() {
 
   const [showAddTask, setShowAddTask] = useState(false);
 
-  const baseUrl = "http://localhost:5000/tasks/";
+  const BASE_URL = "http://localhost:5000/tasks/";
 
   const fetchTasks = async () => {
-    const res = await fetch(baseUrl);
+    const res = await fetch(BASE_URL);
     return res.json();
   };
 
   const fetchTask = async (id) => {
-    const res = await fetch(`${baseUrl + id}`);
+    const res = await fetch(`${BASE_URL + id}`);
     return res.json();
   };
 
   const addTask = async (task) => {
-    const res = await fetch(baseUrl, {
+    const res = await fetch(BASE_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ function App() {
   };
 
   const deleteTask = async (id) => {
-    await fetch(`${baseUrl + id}`, {
+    await fetch(`${BASE_URL + id}`, {
       method: "DELETE",
     });
     setTasks(tasks.filter((task) => task.id !== id));
@@ -57,7 +57,7 @@ function App() {
     const taskToToggle = await fetchTask(id);
     const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
 
-    const res = await fetch(`${baseUrl + id}`, {
+    const res = await fetch(`${BASE_URL + id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -76,9 +76,9 @@ function App() {
 
   return (
     <Router>
-      <div className="container">
+      <div className='container'>
         <Header
-          title="Task Tracker"
+          title='Task Tracker'
           showAddTask={showAddTask}
           onAdd={() => {
             setShowAddTask(!showAddTask);
@@ -86,7 +86,7 @@ function App() {
         />
 
         <Route
-          path="/"
+          path='/'
           exact
           render={(props) => (
             <>
@@ -103,7 +103,7 @@ function App() {
             </>
           )}
         ></Route>
-        <Route path="/about" component={About}></Route>
+        <Route path='/about' component={About}></Route>
         <Footer />
       </div>
     </Router>
